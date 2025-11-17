@@ -1,0 +1,27 @@
+from simulator import run_simulator
+
+# Programa de Teste:
+# 1. LUI R1, 0x1000 (Carrega 0x10000000 em R1)
+# 2. LLI R1, 0x0001 (Carrega 0x10000001 em R1)
+# 3. LUI R2, 0x0000 (Carrega 0x00000000 em R2)
+# 4. LLI R2, 0x0002 (Carrega 0x00000002 em R2)
+# 5. ADD R3, R1, R2 (R3 = 0x10000001 + 0x00000002 = 0x10000003)
+# 6. SW R3, R0 (MEM[R0] = R3 -> MEM[0] = 0x10000003)
+# 7. LW R4, R0 (R4 = MEM[R0] -> R4 = 0x10000003)
+# 8. HALT
+
+test_program = [
+    'address 0',
+    '00010101000100000000000000000001', # LUI R1, 0x1000
+    '00010110000000000000000100000001', # LLI R1, 0x0001
+    '00010101000000000000000000000010', # LUI R2, 0x0000
+    '00010110000000000000001000000010', # LLI R2, 0x0002
+    '00000001000000010000001000000011', # ADD R3, R1, R2
+    '00011001000000110000000000000000', # SW R3, R0 (MEM[0] = R3)
+    '00011000000000000000000000000100', # LW R4, R0 (R4 = MEM[0])
+    '11111111111111111111111111111111'  # HALT
+]
+
+if __name__ == "__main__":
+    print("Executando programa de teste simples:")
+    run_simulator(test_program)
